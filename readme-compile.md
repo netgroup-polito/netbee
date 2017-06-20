@@ -1,13 +1,10 @@
-﻿/**************************************************************************/
-/*                      How to compile NetBee                             */
-/**************************************************************************/
+# How to compile NetBee
 
 This section is useful only for the programmers that want to modify and 
 recompile NetBee sources. 
 
 
-1. Compiling NetBee on Windows
-==============================
+## 1. Compiling NetBee on Windows
 
 NetBee sources must be unpacked on the hard disk; in order to keep the 
 settings of the project files, the folder structure must be the following:
@@ -157,8 +154,7 @@ In order to accomplish this task, you need to complete the following steps:
 
 
 
-2. Compiling NetBee on Unix-like systems
-========================================
+## 2. Compiling NetBee on Unix-like systems
 
 Currently we compiled NetBee on Linux Ubuntu 12.04, Mac OS X Lion and 
 FreeBSD 8.3.
