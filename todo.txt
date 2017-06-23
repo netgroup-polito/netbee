@@ -67,4 +67,4 @@ NetVM::CreatePort(): non sono documentati i flags ??(chi sa cosa fanno)
 
 NetVM::CreatePort(): esistono due tipi di chiamata, uno con un exporter, uno con un collector. C'e' un metodo intelligente per evitare che qualcuno dichiari un exporter e poi lo usi come porta di ingresso dei pkt all'interno della NetVM) (mail per capire)
 
-La funzione GetPort() del NetPE è un po' strana (? da guardare)
+La funzione GetPort() del NetPE Ã¨ un po' strana? ( da guardare)
