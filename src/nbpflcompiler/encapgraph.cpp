@@ -52,7 +52,7 @@ EncapGraph::GraphNode &EncapGraph::AddNode(SymbolProto* &proto)
 	
 	////cerr << " inserting protocol node" << endl;
 	node = &(ProtoGraph::AddNode(proto));
-	m_ProtoGraphMap.insert(std::make_pair<uint32, EncapGraph::GraphNode*>(proto->ID, node));
+	m_ProtoGraphMap.insert(std::make_pair(proto->ID, node));
 	
 	return *node;
 }

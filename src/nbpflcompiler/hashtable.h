@@ -226,7 +226,7 @@ bool HashTable<TKey, TItem>::LookUp(TKey &key, TItem &item, bool add)
 			* the first element of the pair (result.first) is itself a pair <key, element>
 			* the second element of the pair (result.second) is a boolean value that indicates if the key was already present or not
 		*/
-		result = m_HashTable.insert(make_pair<TKey, TItem>(key, item));
+		result = m_HashTable.insert(make_pair(key, item));
 		(result.first)->second = item;
 		return !result.second;
 	}

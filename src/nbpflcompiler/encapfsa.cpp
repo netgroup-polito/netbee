@@ -401,7 +401,7 @@ bool MoveExt(DFAset* ds, EncapFSA *fsa, EncapLabel_t sym, DFAset* newds,
   for( std::map<std::set<EncapFSA::State*>, EncapFSA::State*>::iterator ii = det_tokens.begin();
        ii != det_tokens.end();
        ++ii) 
-    et_out_gates->insert(make_pair<DFAset*, EncapFSA::State*>(new DFAset(ii->first),ii->second));
+    et_out_gates->insert(make_pair(new DFAset(ii->first),ii->second));
     
 
   *ptr_to_et = local_et;
@@ -1088,7 +1088,7 @@ EncapFSA::StateIterator EncapFSABuilder::AddState(EncapFSA &fsa, EncapGraph::Gra
           EncapStIterator_t newState = fsa.AddState(origNode.NodeInfo);
           if ( i == m_NodeMap.end() ) 
           { // add the state to the caching map only if it is the first one associated with this origNode
-            pair<EncapGraph::GraphNode*, EncapStIterator_t> p = make_pair<EncapGraph::GraphNode*, EncapStIterator_t>(&origNode, newState);
+            pair<EncapGraph::GraphNode*, EncapStIterator_t> p = make_pair(&origNode, newState);
             m_NodeMap.insert(p);
           }
           return newState;
@@ -1664,7 +1664,7 @@ EncapFSA *EncapFSABuilder::BuildRegExpFSA(list<PFLSetExpression*>* innerList,sta
 					}
 				
 					//this element requires the header indexing. Then all the symbol leading to its protocol must have the code to increment a counter
-					EncapLabel_t label = std::make_pair<SymbolProto*, SymbolProto*>(NULL, protocol);//label representing all the symbols leading to proto
+					EncapLabel_t label = std::make_pair((SymbolProto*)NULL, protocol);//label representing all the symbols leading to proto
 					
 					if(headerIndexing == 1 && status == ACTION_STATE)
 					{
@@ -1695,7 +1695,7 @@ EncapFSA *EncapFSABuilder::BuildRegExpFSA(list<PFLSetExpression*>* innerList,sta
 						for(set<SymbolProto*>::iterator sp = protocols.begin(); sp != protocols.end(); sp++)
 						{
 							//this protocol requires the counter for tunneled.
-							EncapLabel_t label = std::make_pair<SymbolProto*, SymbolProto*>(NULL, *sp);//label representing all the symbols leading to this protocol 
+							EncapLabel_t label = std::make_pair((SymbolProto*)NULL, *sp);//label representing all the symbols leading to this protocol 
 							fsa->AddCode2(label,ss.str(), (*sp)->Name == protocol->Name);//the check on the ET, must be performed only for the protocol on which the keyword "tunneled" refers
 						}
 					}
@@ -1725,7 +1725,7 @@ EncapFSA *EncapFSABuilder::BuildRegExpFSA(list<PFLSetExpression*>* innerList,sta
 						//this protocol has the predicate
 						set<SymbolProto*> aux;
 						aux.insert(protocol);
-						currentPredicates.insert(make_pair<set<SymbolProto*>,PFLTermExpression*>(aux,static_cast<PFLTermExpression*>(*eIt)));
+						currentPredicates.insert(make_pair(aux,static_cast<PFLTermExpression*>(*eIt)));
 					}
 				}
 				else
@@ -1738,7 +1738,7 @@ EncapFSA *EncapFSABuilder::BuildRegExpFSA(list<PFLSetExpression*>* innerList,sta
 						//this protocol has the predicate. it could be on a field, on a counter, or on both
 						set<SymbolProto*> aux;
 						aux.insert(protocol);
-						currentPredicates.insert(make_pair<set<SymbolProto*>,PFLTermExpression*>(aux,static_cast<PFLTermExpression*>(*eIt)));
+						currentPredicates.insert(make_pair(aux,static_cast<PFLTermExpression*>(*eIt)));
 					}
 				
 				}
@@ -1815,7 +1815,7 @@ EncapFSA::Alphabet_t EncapFSABuilder::CompleteAlphabet(set<SymbolProto*> *allPro
 		list<EncapGraph::GraphNode*> &predecessors = (*i)->GetPredecessors();
 		for (list<EncapGraph::GraphNode*>::iterator p = predecessors.begin();p != predecessors.end();p++)
 		{
-			EncapLabel_t label = std::make_pair<SymbolProto*, SymbolProto*>((*p)->NodeInfo, (*i)->NodeInfo);
+			EncapLabel_t label = std::make_pair((*p)->NodeInfo, (*i)->NodeInfo);
 			alphabet.insert(label);
 		}				
 	}
@@ -1848,7 +1848,7 @@ EncapFSA *EncapFSABuilder::AnalyzeExpression(SymbolProto *prevProto, SymbolProto
 			string proto = predicate.substr(0,pos);
 			string field = predicate.substr(pos+1);
 #ifdef ENABLE_FIELD_OPT	
-			predicatesOnFields.insert(make_pair<string,string>(proto,field));
+			predicatesOnFields.insert(make_pair(proto,field));
 #endif
 			break;
 		}
@@ -2082,7 +2082,7 @@ EncapFSA::State *EncapFSABuilder::ManageDefaultROP(EncapFSA *fsa,set<SymbolProto
 					{
 						//manage the predicate on a counter related to the header index
 						SymbolProto *p = *(((*it).first).begin());
-						string code = fsa->GetCodeToCheck1(make_pair<SymbolProto*, SymbolProto*>(NULL, p));
+						string code = fsa->GetCodeToCheck1(make_pair((SymbolProto*)NULL, p));
 						code.resize(code.size()-2);
 						predicates = ManagePredicatesOnCounters(previousState->GetInfo(),(&(*newState))->GetInfo(),*aIt,predicates,currentPEx->GetHeaderIndex(),EQUAL,code);
 					}
@@ -2091,7 +2091,7 @@ EncapFSA::State *EncapFSABuilder::ManageDefaultROP(EncapFSA *fsa,set<SymbolProto
 					{
 						//manage the predicate on a counter related to the tunneled
 						SymbolProto *p = *(((*it).first).begin());
-						string code = fsa->GetCodeToCheck2(make_pair<SymbolProto*, SymbolProto*>(NULL, p));
+						string code = fsa->GetCodeToCheck2(make_pair((SymbolProto*)NULL, p));
 						code.resize(code.size()-2);
 						predicates = ManagePredicatesOnCounters(previousState->GetInfo(),(&(*newState))->GetInfo(),*aIt,predicates,2,GREAT_EQUAL_THAN,code);
 					}
@@ -2162,7 +2162,7 @@ EncapFSA::State *EncapFSABuilder::ManagePLUS(EncapFSA *fsa,set<SymbolProto*>prev
 					{
 						//manage the predicate on a counter related to the tunneled
 						SymbolProto *p = *(((*it).first).begin());
-						string code = fsa->GetCodeToCheck2(make_pair<SymbolProto*, SymbolProto*>(NULL, p));
+						string code = fsa->GetCodeToCheck2(make_pair((SymbolProto*)NULL, p));
 						code.resize(code.size()-2);
 						predicates = ManagePredicatesOnCounters(previousState->GetInfo(),(&(*newState))->GetInfo(),*aIt,predicates,2,GREAT_EQUAL_THAN,code);
 					}
@@ -2214,7 +2214,7 @@ EncapFSA::State *EncapFSABuilder::ManagePLUS(EncapFSA *fsa,set<SymbolProto*>prev
 				{
 					//manage the predicate on a counter related to the tunneled
 					SymbolProto *p = *(((*it).first).begin());
-					string code = fsa->GetCodeToCheck2(make_pair<SymbolProto*, SymbolProto*>(NULL, p));
+					string code = fsa->GetCodeToCheck2(make_pair((SymbolProto*)NULL, p));
 					code.resize(code.size()-2);
 					predicates = ManagePredicatesOnCounters(/*previousState*/(&(*newState))->GetInfo(),(&(*newState))->GetInfo(),*aIt,predicates,2,GREAT_EQUAL_THAN,code);
 				}
@@ -2279,7 +2279,7 @@ EncapFSA::State *EncapFSABuilder::ManageSTAR(EncapFSA *fsa,set<SymbolProto*>prev
 				{
 					//manage the predicate on a counter related to the tunneled
 					SymbolProto *p = *(((*it).first).begin());
-					string code = fsa->GetCodeToCheck2(make_pair<SymbolProto*, SymbolProto*>(NULL, p));
+					string code = fsa->GetCodeToCheck2(make_pair((SymbolProto*)NULL, p));
 					code.resize(code.size()-2);
 					predicates = ManagePredicatesOnCounters((&(*newState))->GetInfo(),(&(*newState))->GetInfo(),*aIt,predicates,2,GREAT_EQUAL_THAN,code);
 				}
@@ -2329,7 +2329,7 @@ EncapFSA::State *EncapFSABuilder::ManageQUESTION(EncapFSA *fsa,set<SymbolProto*>
 					{
 						//manage the predicate on a counter related to the tunneled
 						SymbolProto *p = *(((*it).first).begin());
-						string code = fsa->GetCodeToCheck2(make_pair<SymbolProto*, SymbolProto*>(NULL, p));
+						string code = fsa->GetCodeToCheck2(make_pair((SymbolProto*)NULL, p));
 						code.resize(code.size()-2);
 						predicates = ManagePredicatesOnCounters(previousState->GetInfo(),(&(*newState))->GetInfo(),*aIt,predicates,2,GREAT_EQUAL_THAN,code);
 					}
@@ -2351,7 +2351,7 @@ EncapFSA::Alphabet_t EncapFSABuilder::CreateAlphabet(set<SymbolProto*>previousPr
 	{
 		for(set<SymbolProto*>::iterator c = currentProtos.begin(); c != currentProtos.end();c++)	
 		{
-			EncapLabel_t label = std::make_pair<SymbolProto*, SymbolProto*>(*p, *c);
+			EncapLabel_t label = std::make_pair(*p, *c);
 			EncapFSA::Alphabet_t::iterator l = completeAlphabet.begin();
 			for (; l != completeAlphabet.end(); l++)
 			{

@@ -19,7 +19,7 @@ EncapGraph::GraphNode &FilterSubGraph::AddNode(EncapGraph::GraphNode &origNode)
 	{
 		//cout << "Creating new node map for node: " << origNode.NodeInfo->ToString() << endl;
 		EncapGraph::GraphNode *newNode = &m_Graph.AddNode(origNode.NodeInfo);
-		pair<EncapGraph::GraphNode*, EncapGraph::GraphNode*> p = make_pair<EncapGraph::GraphNode*, EncapGraph::GraphNode*>(&origNode, newNode);
+		pair<EncapGraph::GraphNode*, EncapGraph::GraphNode*> p = make_pair(&origNode, newNode);
 		m_NodeMap.insert(p);
 		return *newNode;
 	}
@@ -147,7 +147,7 @@ CodeList *FilterSubGraph::NewProtoCodeList(EncapGraph::GraphNode &node)
 
 	CodeList *hirCode = new CodeList(OWNS_STATEMENTS);
 
-	pair<EncapGraph::GraphNode*, CodeList*> p = make_pair<EncapGraph::GraphNode*, CodeList*>(&node, hirCode);
+	pair<EncapGraph::GraphNode*, CodeList*> p = make_pair(&node, hirCode);
 	m_ProtoCodeMap.insert(p);
 
 	return hirCode;

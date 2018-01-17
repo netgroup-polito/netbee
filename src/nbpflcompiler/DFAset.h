@@ -148,7 +148,7 @@ public:
 
 	void AddState(EncapFSA::State *s)
 	{
-		std::pair<uint32, EncapFSA::State*> p = make_pair<uint32, EncapFSA::State*>(s->GetID(), s);
+		std::pair<uint32, EncapFSA::State*> p = make_pair(s->GetID(), s);
 		states.insert(p);
 
         if (states_acceptingfinal == NULL && s->isAccepting() && s->isFinal() )

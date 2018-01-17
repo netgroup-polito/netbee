@@ -4,7 +4,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(makeallsources)
 
 IF(CMAKE_COMPILER_IS_GNUCXX)
-        ADD_DEFINITIONS(-Wall -Wno-write-strings)
+        ADD_DEFINITIONS(-std=c++11 -Wall -Wno-write-strings)
 ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 IF(CMAKE_COMPILER_IS_GNUCC)
         ADD_DEFINITIONS(-Wall -Wno-write-strings)

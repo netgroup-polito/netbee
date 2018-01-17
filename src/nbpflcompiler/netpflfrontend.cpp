@@ -3293,7 +3293,7 @@ void NetPFLFrontEnd::ETCodegenCB_newlabel(unsigned long id, string proto_field_n
   {
   	//et on a variable related to the symbols - we want to check: variable==n
 	SymbolProto *proto = info->instance->m_GlobalSymbols.LookUpProto(proto_name);
-	EncapLabel_t label = std::make_pair<SymbolProto*, SymbolProto*>(NULL, proto);//label representing all the symbols leading to proto
+	EncapLabel_t label = std::make_pair((SymbolProto*)NULL, proto);//label representing all the symbols leading to proto
 	SymbolTemp *st = info->instance->m_fsa->GetVariableToCheck1(label); //get the variable to test
 	nbASSERT(st!=NULL,"This symbol cannot be NULL. There is a bug!");
 	nbASSERT(st->SymKind==SYM_TEMP,"There is a bug! This symbol should be SYM_TEMP");

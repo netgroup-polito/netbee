@@ -678,7 +678,7 @@ SwitchMIRONode::targets_iterator SwitchMIRONode::TargetsBegin()
 		uint32_t case_value = (*i)->getKid(0)->getValue();
 		CaseMIRONode *case_node = dynamic_cast<CaseMIRONode*>(*i);
 		uint32_t target = getCFG()->LookUpLabel(case_node->getTarget()->Name)->getId();
-		_target_list.push_back(std::make_pair<uint32_t, uint32_t>(case_value, target));
+		_target_list.push_back(std::make_pair(case_value, target));
 	}
 	return _target_list.begin();
 }

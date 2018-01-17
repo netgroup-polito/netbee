@@ -75,7 +75,7 @@ public:
 	static void DumpOpCode_s(uint16_t opcode, ostream&);
 
 	~CodeWriter() {
-		if (m_Stream!=NULL)
+		if (!m_Stream)
 		{
 			m_Stream.flush();
 		}

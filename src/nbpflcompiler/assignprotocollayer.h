@@ -158,7 +158,7 @@ class AssignProtocolLayer
 			if(n!=s.end())
 				s.erase(n);		
 			pl.erase(oldL);		
-			pl.insert(make_pair<double,set<SymbolProto*> >(oldL,s));
+			pl.insert(make_pair(oldL,s));
 		}
 				
 		//store the new info
@@ -168,7 +168,7 @@ class AssignProtocolLayer
 			s2 = (*element2).second;
 		s2.insert(protocol);
 		pl.erase(newL);
-		pl.insert(make_pair<double,set<SymbolProto*> >(newL,s2));
+		pl.insert(make_pair(newL,s2));
 	}
 	
 	/*

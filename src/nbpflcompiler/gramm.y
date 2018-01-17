@@ -1622,7 +1622,7 @@ SymbolField* CheckField(ParserInfo *parserInfo, char * protoName, YYLTYPE *llocp
 
 	if(strcmp(fieldName,"allfields")==0)
    	{	
-   		if(protocolsForExtraction.count(make_pair<SymbolProto*,uint32>(protoSymbol,headerIndex))!=0)
+   		if(protocolsForExtraction.count(make_pair(protoSymbol,headerIndex))!=0)
    		{
    			pfl_error(llocp, parserInfo, "You cannot specify a protocol two times for the field extraction, if the second of them is on \"allfields\"");
    			return NULL;
@@ -1634,7 +1634,7 @@ SymbolField* CheckField(ParserInfo *parserInfo, char * protoName, YYLTYPE *llocp
    	}
     else
     {
-    	protocolsForExtraction.insert(make_pair<SymbolProto*,uint32>(protoSymbol,headerIndex)); //this set is needed in order to verify that the protocol with all field is not present in the extractfields yet
+    	protocolsForExtraction.insert(make_pair(protoSymbol,headerIndex)); //this set is needed in order to verify that the protocol with all field is not present in the extractfields yet
 		return globalSymbols.LookUpProtoFieldByName(protoName, fieldName);
 	}
 	
