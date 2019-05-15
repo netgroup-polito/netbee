@@ -71,7 +71,7 @@ int InitializeIPAnonymizer(AnonymizationMapTable_t &AnonymizationIPTable, Anonym
 		return nbFAILURE;
 	}
 
-	while (getline(fp, line) != NULL)
+	while (getline(fp, line))
 	{
 		// ignore empty lines
 		if (line.size() == 0)
