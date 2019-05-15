@@ -66,7 +66,7 @@ HMODULE ModuleHandle;
 		return nbFAILURE;
 	}
 
-#elif defined(linux)
+#elif defined(__linux__)
 
 	void* dllHandle = dlopen(NBEE_SHAREDLIB_FILE_NAME, RTLD_LAZY);
 	if (dllHandle == NULL)
